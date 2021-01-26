@@ -1,9 +1,6 @@
 # BlazorWithSerilog
 Using Serilog with Blazor
 
+This is a sample project to demonstrate how to use Serilog with Blazor.  Since Blazor does not support Serilog yet, this is really just a demonstration of using Serilog with .NET Core.  However I've added wrapper classes around the loggers on the server and client which both implement a shared interface.  This abstracts the Serilog logger so the same log surface area can be used on both the client and server.  This also allows the logger to be injected into classes that are shared between the client and server.
 
-Blazor WASM Client does not support Serilog yet.  I get this error:
-
-Error	BLAZORSDK1001	The project references the ASP.NET Core shared framework, which is not supported by Blazor WebAssembly apps. Remove the framework reference if directly referenced, or the package reference that adds the framework reference.	BlazorWithSerilog.Client	C:\Program Files\dotnet\sdk\5.0.102\Sdks\Microsoft.NET.Sdk.BlazorWebAssembly\targets\Microsoft.NET.Sdk.BlazorWebAssembly.Current.targets	635	
-
-This project contains wrapper classes that work identically on the client and server, so the logger may be injected (via interface) into shared classes.
+I've added a local and global log level setting which can be changed at run time in response to errors.  Logs are written if they qualify in either the global or local setting.
