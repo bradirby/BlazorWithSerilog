@@ -1,0 +1,64 @@
+﻿@page "/fetchdata"
+@using BlazorWithSerilog.Shared
+@inject HttpClient Http
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private WeatherForecast[] forecasts;
+    [Inject] IMessageLogger<FetchData> MsgLogger { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+
+        EchoLoggerState();
+
+    }
+
+    private void EchoLoggerState()
+    {
+        MsgLogger.LogCritical($"--------------------------------------");
+        MsgLogger.LogCritical($"current global level is {MsgLogger.GlobalLoggingLevel}");
+        MsgLogger.LogCritical($"current local level {MsgLogger.LocalLoggingLevel}");
+
+        MsgLogger.LogTrace("this is a trace message");
+        MsgLogger.LogDebug("this is a debug message");
+        MsgLogger.LogInformation("this is an info message");
+        MsgLogger.LogWarning("this is a warning message");
+        MsgLogger.LogError("this is an error message");
+        MsgLogger.LogCritical("this is a critical message");
+    }
+
+}

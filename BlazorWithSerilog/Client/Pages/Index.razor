@@ -1,0 +1,48 @@
+﻿@page "/"
+@using BlazorWithSerilog.Shared
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code
+{
+    [Inject] IMessageLogger<Index> MsgLogger { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        EchoLoggerState();
+
+        MsgLogger.LogCritical($"--------------------------------------");
+        MsgLogger.LogCritical("Changing local level to Information level");
+        MsgLogger.LocalLoggingLevel = LoggingLevel.Information;
+        EchoLoggerState();
+
+        MsgLogger.LogCritical($"--------------------------------------");
+        MsgLogger.LogCritical("Changing global level to Debug level");
+        MsgLogger.GlobalLoggingLevel = LoggingLevel.Debug;
+        EchoLoggerState();
+
+
+    }
+
+    private void EchoLoggerState()
+    {
+        MsgLogger.LogCritical($"--------------------------------------");
+        MsgLogger.LogCritical($"current global level is {MsgLogger.GlobalLoggingLevel}");
+        MsgLogger.LogCritical($"current local level {MsgLogger.LocalLoggingLevel}");
+
+        MsgLogger.LogTrace("this is a trace message");
+        MsgLogger.LogDebug("this is a debug message");
+        MsgLogger.LogInformation("this is an info message");
+        MsgLogger.LogWarning("this is a warning message");
+        MsgLogger.LogError("this is an error message");
+        MsgLogger.LogCritical("this is a critical message");
+    }
+
+
+}
