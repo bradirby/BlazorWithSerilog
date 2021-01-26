@@ -1,12 +1,7 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using BlazorWithSerilog.Shared;
 
@@ -22,6 +17,7 @@ namespace BlazorWithSerilog.Client
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddTransient(typeof(IMessageLogger<>), typeof(ClientMessageLogger<>));
             builder.Services.AddSingleton<IMessageLogConfiguration>(new MessageLogConfiguration());
+            builder.Services.AddTransient<ILogHistory, LogHistory>();
 
             await builder.Build().RunAsync();
         }

@@ -2,12 +2,12 @@
 {
     public enum LoggingLevel
     {
-        Trace = 0,
-        Debug = 1,
-        Information = 2,
-        Warning = 3,
-        Error = 4,
-        Critical = 5,
-        None = 6
+        Debug = 10,
+        Trace = 20,
+        Information = 30,
+        Warning = 40,
+        Error = 50,
+        Critical = 60,
+        None = 100
     }
 }

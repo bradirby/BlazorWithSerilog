@@ -23,5 +23,12 @@ namespace BlazorWithSerilog.Shared
         LoggingLevel LocalLoggingLevel { get; set; }
 
         LoggingLevel GlobalLoggingLevel { get; set; }
+
+        /// <summary>
+        /// Writes out the last x messages regardless of log level.  Num messages written is set in the config
+        /// </summary>
+        void LogHistory(int numRows);
+
+        int MaxHistoryToKeep { get; set; }
     }
 }

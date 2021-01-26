@@ -45,6 +45,15 @@ namespace BlazorWithSerilog.Server.Controllers
             EchoLogLevels();
             SampleClass.EchoLogLevels();
 
+            MsgLogger.LogCritical($"////////////////////////////////");
+            MsgLogger.LogCritical("writing history");
+            MsgLogger.MaxHistoryToKeep = 30;
+            for (int n = 0; n < 200; n++)
+            {
+                MsgLogger.LogDebug($"msg num {n}");
+            }
+            MsgLogger.LogHistory(50);
+
         }
 
         private void EchoLogLevels()

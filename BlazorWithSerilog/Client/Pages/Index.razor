@@ -23,10 +23,20 @@ Welcome to your new app.
         EchoLoggerState();
 
         MsgLogger.LogCritical($"--------------------------------------");
-        MsgLogger.LogCritical("Changing global level to Debug level");
-        MsgLogger.GlobalLoggingLevel = LoggingLevel.Debug;
+        MsgLogger.LogCritical("Changing global level to trace level");
+        MsgLogger.GlobalLoggingLevel = LoggingLevel.Trace;
         EchoLoggerState();
 
+        MsgLogger.LogCritical($"///////////////////////////////////");
+        MsgLogger.LogCritical("writing history");
+        MsgLogger.LogHistory(20);
+
+        MsgLogger.MaxHistoryToKeep = 30;
+        for (int n = 0; n < 200; n++)
+        {
+            MsgLogger.LogDebug($"msg num {n}");
+        }
+        MsgLogger.LogHistory(50);
 
     }
 

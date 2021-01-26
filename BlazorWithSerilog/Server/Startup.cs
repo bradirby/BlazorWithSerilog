@@ -32,6 +32,7 @@ namespace BlazorWithSerilog.Server
             services.AddTransient(typeof(IMessageLogger<>), typeof(ServerMessageLogger<>));
             services.AddSingleton<IMessageLogConfiguration>(new MessageLogConfiguration());
             services.AddTransient<ISampleExternalClass, SampleExternalClass>();
+            services.AddTransient<ILogHistory, LogHistory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
